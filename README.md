@@ -22,7 +22,7 @@ For each type of file in the highest-level category, a corresponding pipeline fi
 It is important to note that this solution only demonstrates the code for a developer environment. However, integrating it into a production environment would follow the same standards, with the most crucial aspect being the addition of common functions. These functions would allow the code to interact with different cloud components and, depending on the environment variables, choose the appropriate functions to run the code. This would facilitate interaction between the various parts while maintaining the same flow: extract, train, and predict.
 
 Directory structure of the project folders.
-
+```
 app/
   .github/
   config/
@@ -56,7 +56,7 @@ prepare_db.py
 README.md
 requirements.txt
 setup.py
-
+```
 
 ##### Configutaion Locally
 Run this to export as env variables:
