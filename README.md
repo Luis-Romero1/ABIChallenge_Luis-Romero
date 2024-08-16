@@ -99,8 +99,12 @@ docker built -t <name of image>
 
 docker run <name of image> (this creates API)
 
+# Explanation of architecture on AWS
 
+![image](https://github.com/user-attachments/assets/b332bc56-05cb-4314-be5d-da3ad9ffc58c)
 
+This AWS architecture supports continuous integration and deployment, where the changes pushed to GitHub are first analyzed by SonarCloud, and after passing quality checks, GitHub Actions deploys the code to an EC2 instance, where a Docker image is created and stored in ECR. This image is used for custom model training in SageMaker, with the trained model exposed as an endpoint.
+When a client sends a prediction request, it is received by API Gateway and processed by a Lambda function, which forwards it to the SageMaker endpoint, the results are stored in an RDS database for future reference. This setup ensures efficient deployment and scalable handling of predictions.
 
 # AWS-Deployment-with-Github-Actions
 
