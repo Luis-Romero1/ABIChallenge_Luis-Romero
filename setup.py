@@ -4,12 +4,12 @@ with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 
-__version__ = "0.0.0"
+__version__ = "1.0"
 
-REPO_NAME = "Chest-Cancer-Classification-Project"
-AUTHOR_USER_NAME = "entbappy"
+REPO_NAME = "ABIChallenge_Luis&Romero"
+AUTHOR_USER_NAME = "Luis-Romero1"
 SRC_REPO = "Classifier"
-AUTHOR_EMAIL = "entbappy73@gmail.com"
+AUTHOR_EMAIL = "luisdrtapia@gmail.com"
 
 
 setuptools.setup(
@@ -17,7 +17,7 @@ setuptools.setup(
     version=__version__,
     author=AUTHOR_USER_NAME,
     author_email=AUTHOR_EMAIL,
-    description="A small python package for CNN app",
+    description="A Python API for prediction of Iris Dataset",
     long_description=long_description,
     long_description_content="text/markdown",
     url=f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}",

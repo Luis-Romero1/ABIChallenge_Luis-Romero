@@ -1,5 +1,6 @@
 pandas 
 gdown
+setuptools
 numpy
 pyYAML
 tqdm
@@ -13,5 +14,4 @@ scikit-learn
 requests
 python-dotenv
 mysql-connector-python
-freeze
 -e .

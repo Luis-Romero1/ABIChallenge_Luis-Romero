@@ -1,5 +1,4 @@
 from Classifier import logger
-# from Classifier.config import ConfigurationManager as CM
 from Classifier.utils.common import fit_ml_models
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
@@ -57,8 +56,6 @@ class pass_train:
         model_lr.fit(self.x_train, self.y_train)
     
         joblib.dump(model_lr,self.conf["trained_model_path"])    
-        # with open(self.conf["trained_model_path"], "wb") as f:
-        #     pickle.dump(algo_lr, f)
-        #return acc_score_train, acc_score_test, best_score
+        
 
 

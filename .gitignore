@@ -1,6 +1,3 @@
-.env
 template.py
 __pycache__
 Classifier.egg-info
-
-#/Classifier.egg-info

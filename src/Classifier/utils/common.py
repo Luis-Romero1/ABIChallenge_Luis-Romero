@@ -13,6 +13,8 @@ import mysql.connector
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, accuracy_score, davies_bouldin_score, silhouette_score, calinski_harabasz_score
+from sklearn.datasets import load_iris
+
 
 
 
@@ -59,11 +61,35 @@ def extract_workbench(config):
         print(config)
         query = f"SELECT * FROM {config['table']}"
         
-        
+                
         config.pop("table")
         
         connection,cursor=conec_database(config)
+        # Cargar los datos de Iris
+        iris = load_iris()
+        data = iris.data
+        target = iris.target
+        target_names = iris.target_names
+        
+        cursor.execute("SELECT COUNT(*) FROM iris_data")
+        record_count = cursor.fetchone()[0]
 
+        if record_count == 0:
+            
+            insert_query = """
+                INSERT INTO iris_data (sepal_length, sepal_width, petal_length, petal_width, species)
+                VALUES (%s, %s, %s, %s, %s)
+            """
+            values = [
+                (data[i][0], data[i][1], data[i][2], data[i][3], target_names[target[i]])
+                for i in range(len(data))
+            ]
+
+        
+        cursor.executemany(insert_query, values)
+        db_connection.commit()
+        
+        
         cursor.execute(query)
         field_names = [i[0] for i in cursor.description]
         result = pd.DataFrame(cursor.fetchall(),columns=field_names)
@@ -81,29 +107,28 @@ def extract_workbench(config):
 
 
 def fit_ml_models(algo, algo_param, algo_name,x_train,y_train,x_test,y_test):
-    # --- Algorithm Pipeline ---
+    
     algo = Pipeline([("algo", algo)])
     
-    # --- Apply Grid Search ---
+    
     model = GridSearchCV(algo, param_grid=algo_param, cv=10, verbose=1)
     
-    # --- Fitting Model ---
+    
     logger.info(f"Fitting {algo_name}")
     fit_model = model.fit(x_train, y_train)
     
-    # --- Model Best Parameters ---
     best_params = model.best_params_
     logger.info("Best Parameters: "+f"{best_params}")
-    # --- Best & Final Estimators ---
+    
     best_model = model.best_estimator_
     best_estimator = model.best_estimator_._final_estimator
     best_score = round(model.best_score_, 4)
     logger.info(f"Best Score: "+"{:.3f}".format(best_score))
-    # --- Create Prediction for Train & Test ---
+    
     y_pred_train = model.predict(x_train)
     y_pred_test = model.predict(x_test)
     
-    # --- Train & Test Accuracy Score ---
+    
     acc_score_train = round(accuracy_score(y_pred_train, y_train)*100, 3)
     acc_score_test = round(accuracy_score(y_pred_test, y_test)*100, 3)
     logger.info(f"Train and Test Accuracy Score for train {acc_score_train} and test {acc_score_test}")
