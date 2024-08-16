@@ -183,6 +183,7 @@ Although this part of deploying a model involves using the unique and necessary 
 
 It's essential to follow branching strategies to maintain clear and organized development workflows. So, first we need to create feature1 branches directly from master and when we know the code is correct made the merge. In the same way we can create a feature2 branch and independly a developer branch to create new funtionalities in this case we merge fisrt feature 2 and after developer branch, the code to do that go as follow.
 
+```
 git checkout -b feature1
 git pull origin feature1
 git add .
@@ -212,4 +213,4 @@ git commit -m "Developer implementation"
 git push origin developer
 git checkout master
 git merge developer
-
+```
