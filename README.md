@@ -6,14 +6,14 @@
 Description
 
 This app is designed to generate predictions based on user requests. It consists of two main components: a training module (main.py) and a prediction API (app.py). The codebase is modularized to ensure ease of maintenance and scalability.
-
+```
 File hierarchy
  1- main.py (training) app.py (Predict API)
  2- pipeline files
  3. component files
  4- common files
  5- configuration file
-
+```
 
 Description of funtionality
 
