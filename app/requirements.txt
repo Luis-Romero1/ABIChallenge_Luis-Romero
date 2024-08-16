@@ -1,0 +1,17 @@
+pandas 
+gdown
+numpy
+pyYAML
+tqdm
+ensure==1.0.2
+joblib
+types-PyYAML
+scipy
+Flask
+Flask-Cors
+scikit-learn
+requests
+python-dotenv
+mysql-connector-python
+freeze
+-e .
