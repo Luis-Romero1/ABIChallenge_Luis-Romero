@@ -1,0 +1,12 @@
+parameter_lr:
+  algo__solver: 
+    - liblinear 
+    - newton-cg
+  algo__C:
+    - 0.001
+    - 0.01
+    - 0.1
+    - 0.5
+    - 1
+  penalty: l2
+  size: 0.2  

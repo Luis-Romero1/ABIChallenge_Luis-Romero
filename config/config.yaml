@@ -1,0 +1,9 @@
+artifact_root: artifacts
+
+data_extraction:
+  database: iris_db
+  table: iris_dataset
+
+training:
+  root_dir: model
+  trained_model_path: model/model.pkl

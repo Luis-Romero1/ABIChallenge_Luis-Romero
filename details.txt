@@ -1,0 +1,7 @@
+Librerias, pandas, scikit-learn
+
+flask, jango,   streamlit
+
+Creé un ambiente llamado infraproy
+Genere las carpetas que contendran el desarrollo del código con el template
+Genere una conectión de base de datos con el usuario iris1 y contraseña Xi25_PS6iww9os?z3
