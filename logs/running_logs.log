@@ -1,0 +1,235 @@
+[2024-08-19 07:36:18,091: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 07:36:18,093: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 07:36:18,098: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 07:36:18,100: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 07:36:18,101: INFO: common: created directory at: artifacts]
+[2024-08-19 09:13:47,430: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:13:47,441: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:13:47,442: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:13:47,443: INFO: common: created directory at: artifacts]
+[2024-08-19 09:13:47,443: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:13:47,548: ERROR: main: local variable 'result' referenced before assignment]
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\main.py", line 13, in <module>
+    df=obj.main()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\pipeline\Stage_01_data_extraction.py", line 17, in main
+    return data_extraction.extract_info()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\components\data_extraction.py", line 14, in extract_info
+    self.data=extract_workbench(self.config)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\utils\common.py", line 105, in extract_workbench
+    return result
+UnboundLocalError: local variable 'result' referenced before assignment
+[2024-08-19 09:40:44,869: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:40:44,871: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:40:44,872: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:40:44,873: INFO: common: created directory at: artifacts]
+[2024-08-19 09:40:44,873: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:40:44,939: ERROR: main: local variable 'insert_query' referenced before assignment]
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\main.py", line 13, in <module>
+    df=obj.main()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\pipeline\Stage_01_data_extraction.py", line 17, in main
+    return data_extraction.extract_info()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\components\data_extraction.py", line 14, in extract_info
+    self.data=extract_workbench(self.config)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\utils\common.py", line 89, in extract_workbench
+    cursor.executemany(insert_query, values)
+UnboundLocalError: local variable 'insert_query' referenced before assignment
+[2024-08-19 09:41:12,922: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:41:12,924: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:41:12,925: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:41:12,926: INFO: common: created directory at: artifacts]
+[2024-08-19 09:41:12,926: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:41:12,952: INFO: data_extraction: Extracteded data from database]
+[2024-08-19 09:41:12,952: INFO: main: >>>>>> stage Data Extraction stage completed <<<<<<
+
+x==========x]
+[2024-08-19 09:41:12,971: INFO: main: *******************]
+[2024-08-19 09:41:12,971: INFO: main: >>>>>> stage Training started <<<<<<]
+[2024-08-19 09:41:12,972: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:41:12,974: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:41:12,974: INFO: common: created directory at: artifacts]
+[2024-08-19 09:41:12,975: INFO: data_train: Starting training]
+[2024-08-19 09:41:12,981: INFO: common: Fitting Logistic Regression]
+[2024-08-19 09:41:13,567: INFO: common: Best Parameters: {'algo__C': 0.5, 'algo__solver': 'newton-cg'}]
+[2024-08-19 09:41:13,568: INFO: common: Best Score: 0.958]
+[2024-08-19 09:41:13,571: INFO: common: Train and Test Accuracy Score for train 96.667 and test 100.0]
+[2024-08-19 09:41:13,571: INFO: common: Finishing training]
+[2024-08-19 09:41:13,581: INFO: main: >>>>>> stage Training completed <<<<<<
+
+x==========x]
+[2024-08-19 09:41:39,378: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:41:39,379: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:41:39,380: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:41:39,381: INFO: common: created directory at: artifacts]
+[2024-08-19 09:41:39,381: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:41:39,420: ERROR: main: local variable 'result' referenced before assignment]
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\main.py", line 13, in <module>
+    df=obj.main()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\pipeline\Stage_01_data_extraction.py", line 17, in main
+    return data_extraction.extract_info()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\components\data_extraction.py", line 14, in extract_info
+    self.data=extract_workbench(self.config)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\utils\common.py", line 105, in extract_workbench
+    return result
+UnboundLocalError: local variable 'result' referenced before assignment
+[2024-08-19 09:43:35,401: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:43:35,402: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:43:35,404: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:43:35,404: INFO: common: created directory at: artifacts]
+[2024-08-19 09:43:35,404: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:43:35,426: ERROR: main: 1146 (42S02): Table 'iris_db.iris_data' doesn't exist]
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\connection_cext.py", line 705, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'iris_db.iris_data' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\main.py", line 13, in <module>
+    df=obj.main()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\pipeline\Stage_01_data_extraction.py", line 17, in main
+    return data_extraction.extract_info()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\components\data_extraction.py", line 14, in extract_info
+    self.data=extract_workbench(self.config)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\utils\common.py", line 89, in extract_workbench
+    cursor.executemany(insert_query, values)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\cursor_cext.py", line 484, in executemany
+    return self.execute(stmt)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\cursor_cext.py", line 357, in execute
+    result = self._connection.cmd_query(
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\opentelemetry\context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\connection_cext.py", line 713, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'iris_db.iris_data' doesn't exist
+[2024-08-19 09:44:01,076: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:44:01,077: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:44:01,078: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:44:01,079: INFO: common: created directory at: artifacts]
+[2024-08-19 09:44:01,079: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:44:01,101: ERROR: main: 1265 (01000): Data truncated for column 'species' at row 1]
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\connection_cext.py", line 705, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Data truncated for column 'species' at row 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\main.py", line 13, in <module>
+    df=obj.main()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\pipeline\Stage_01_data_extraction.py", line 17, in main
+    return data_extraction.extract_info()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\components\data_extraction.py", line 14, in extract_info
+    self.data=extract_workbench(self.config)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\utils\common.py", line 89, in extract_workbench
+    cursor.executemany(insert_query, values)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\cursor_cext.py", line 484, in executemany
+    return self.execute(stmt)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\cursor_cext.py", line 357, in execute
+    result = self._connection.cmd_query(
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\opentelemetry\context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\connection_cext.py", line 713, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 1265 (01000): Data truncated for column 'species' at row 1
+[2024-08-19 09:45:59,393: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:45:59,395: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:45:59,397: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:45:59,397: INFO: common: created directory at: artifacts]
+[2024-08-19 09:45:59,397: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:45:59,431: ERROR: main: 1265 (01000): Data truncated for column 'species' at row 1]
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\connection_cext.py", line 705, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Data truncated for column 'species' at row 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\main.py", line 13, in <module>
+    df=obj.main()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\pipeline\Stage_01_data_extraction.py", line 17, in main
+    return data_extraction.extract_info()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\components\data_extraction.py", line 14, in extract_info
+    self.data=extract_workbench(self.config)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\utils\common.py", line 90, in extract_workbench
+    cursor.executemany(insert_query, values)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\cursor_cext.py", line 484, in executemany
+    return self.execute(stmt)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\cursor_cext.py", line 357, in execute
+    result = self._connection.cmd_query(
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\opentelemetry\context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\connection_cext.py", line 713, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 1265 (01000): Data truncated for column 'species' at row 1
+[2024-08-19 09:47:12,810: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:47:12,812: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:47:12,813: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:47:12,813: INFO: common: created directory at: artifacts]
+[2024-08-19 09:47:12,813: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:47:12,842: ERROR: main: Failed executing the operation; Python type numpy.int64 cannot be converted]
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\main.py", line 13, in <module>
+    df=obj.main()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\pipeline\Stage_01_data_extraction.py", line 17, in main
+    return data_extraction.extract_info()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\components\data_extraction.py", line 14, in extract_info
+    self.data=extract_workbench(self.config)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\utils\common.py", line 90, in extract_workbench
+    cursor.executemany(insert_query, values)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\cursor_cext.py", line 481, in executemany
+    stmt = self._batch_insert(operation, seq_params)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\mysql\connector\cursor_cext.py", line 435, in _batch_insert
+    raise InterfaceError(f"Failed executing the operation; {err}") from None
+mysql.connector.errors.InterfaceError: Failed executing the operation; Python type numpy.int64 cannot be converted
+[2024-08-19 09:48:58,208: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:48:58,209: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:48:58,210: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:48:58,210: INFO: common: created directory at: artifacts]
+[2024-08-19 09:48:58,211: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:48:58,256: INFO: data_extraction: Extracteded data from database]
+[2024-08-19 09:48:58,256: INFO: main: >>>>>> stage Data Extraction stage completed <<<<<<
+
+x==========x]
+[2024-08-19 09:48:58,267: INFO: main: *******************]
+[2024-08-19 09:48:58,267: INFO: main: >>>>>> stage Training started <<<<<<]
+[2024-08-19 09:48:58,268: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:48:58,270: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:48:58,270: INFO: common: created directory at: artifacts]
+[2024-08-19 09:48:58,271: INFO: data_train: Starting training]
+[2024-08-19 09:48:58,273: INFO: common: Fitting Logistic Regression]
+[2024-08-19 09:48:58,955: INFO: common: Best Parameters: {'algo__C': 0.5, 'algo__solver': 'newton-cg'}]
+[2024-08-19 09:48:58,956: INFO: common: Best Score: 0.958]
+[2024-08-19 09:48:58,958: INFO: common: Train and Test Accuracy Score for train 96.667 and test 100.0]
+[2024-08-19 09:48:58,959: INFO: common: Finishing training]
+[2024-08-19 09:48:58,966: INFO: main: >>>>>> stage Training completed <<<<<<
+
+x==========x]
+[2024-08-19 09:49:26,636: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-19 09:49:26,637: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:49:26,639: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:49:26,639: INFO: common: created directory at: artifacts]
+[2024-08-19 09:49:26,639: INFO: data_extraction: Extracting data from database]
+[2024-08-19 09:49:26,673: INFO: data_extraction: Extracteded data from database]
+[2024-08-19 09:49:26,674: INFO: main: >>>>>> stage Data Extraction stage completed <<<<<<
+
+x==========x]
+[2024-08-19 09:49:26,686: INFO: main: *******************]
+[2024-08-19 09:49:26,686: INFO: main: >>>>>> stage Training started <<<<<<]
+[2024-08-19 09:49:26,687: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-19 09:49:26,688: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-19 09:49:26,689: INFO: common: created directory at: artifacts]
+[2024-08-19 09:49:26,689: INFO: data_train: Starting training]
+[2024-08-19 09:49:26,692: INFO: common: Fitting Logistic Regression]
+[2024-08-19 09:49:27,339: INFO: common: Best Parameters: {'algo__C': 0.5, 'algo__solver': 'newton-cg'}]
+[2024-08-19 09:49:27,340: INFO: common: Best Score: 0.958]
+[2024-08-19 09:49:27,342: INFO: common: Train and Test Accuracy Score for train 96.667 and test 100.0]
+[2024-08-19 09:49:27,343: INFO: common: Finishing training]
+[2024-08-19 09:49:27,351: INFO: main: >>>>>> stage Training completed <<<<<<
+
+x==========x]

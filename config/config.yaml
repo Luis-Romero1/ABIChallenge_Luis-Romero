@@ -7,3 +7,4 @@ data_extraction:
 training:
   root_dir: model
   trained_model_path: model/model.pkl
+

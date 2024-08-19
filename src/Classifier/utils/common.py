@@ -4,7 +4,6 @@ import pandas as pd
 from Classifier import logger
 import json
 import joblib
-from ensure import ensure_annotations
 from sklearn.pipeline import Pipeline
 from pathlib import Path
 from typing import Any
@@ -19,8 +18,7 @@ from sklearn.datasets import load_iris
 
 
 
-@ensure_annotations
-def read_yaml(path_to_yaml: Path):
+def read_yaml(path_to_yaml):
     
     try:
         with open(path_to_yaml) as yaml_file:
@@ -32,8 +30,7 @@ def read_yaml(path_to_yaml: Path):
     
 
 
-@ensure_annotations
-def create_directories(path_to_directories: list, verbose=True):
+def create_directories(path_to_directories, verbose=True):
     """create list of directories
 
     Args:
@@ -70,40 +67,41 @@ def extract_workbench(config):
         data = iris.data
         target = iris.target
         target_names = iris.target_names
-        
-        cursor.execute("SELECT COUNT(*) FROM iris_data")
+        print(target)
+        print(data)         
+        cursor.execute("SELECT COUNT(*) FROM iris_dataset")
         record_count = cursor.fetchone()[0]
 
         if record_count == 0:
             
             insert_query = """
-                INSERT INTO iris_data (sepal_length, sepal_width, petal_length, petal_width, species)
+                INSERT INTO iris_dataset (sepal_length, sepal_width, petal_length, petal_width, species)
                 VALUES (%s, %s, %s, %s, %s)
             """
             values = [
-                (data[i][0], data[i][1], data[i][2], data[i][3], target_names[target[i]])
+                (float(data[i][0]), float(data[i][1]), float(data[i][2]), float(data[i][3]), float(target[i])) #target_names[target[i]])
                 for i in range(len(data))
             ]
 
         
-        cursor.executemany(insert_query, values)
-        db_connection.commit()
+            cursor.executemany(insert_query, values)
+            connection.commit()
         
         
         cursor.execute(query)
         field_names = [i[0] for i in cursor.description]
         result = pd.DataFrame(cursor.fetchall(),columns=field_names)
-        
-
-    except mysql.connector.Error as err:
-        print(f"Error: {err}")
-    finally:
         if cursor:
             cursor.close()
         if connection:
             connection.close()
-    return result
+        return result
 
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    
+        
+    
 
 
 def fit_ml_models(algo, algo_param, algo_name,x_train,y_train,x_test,y_test):
@@ -141,8 +139,8 @@ def fit_ml_models(algo, algo_param, algo_name,x_train,y_train,x_test,y_test):
 
 
 
-@ensure_annotations
-def save_json(path: Path, data: dict):
+
+def save_json(path, data):
     """save json data
 
     Args:
@@ -157,8 +155,8 @@ def save_json(path: Path, data: dict):
 
 
 
-@ensure_annotations
-def load_json(path: Path):
+
+def load_json(path):
     """load json files data
 
     Args:
@@ -174,8 +172,8 @@ def load_json(path: Path):
     return ConfigBox(content)
 
 
-@ensure_annotations
-def save_bin(data: Any, path: Path):
+
+def save_bin(data, path):
     """save binary file
 
     Args:
@@ -186,8 +184,8 @@ def save_bin(data: Any, path: Path):
     logger.info(f"binary file saved at: {path}")
 
 
-@ensure_annotations
-def load_bin(path: Path):
+
+def load_bin(path):
     """load binary data
 
     Args:

@@ -1,0 +1,225 @@
+Metadata-Version: 2.1
+Name: Classifier
+Version: 1.0
+Summary: A Python API for prediction of Iris Dataset
+Home-page: https://github.com/Luis-Romero1/ABIChallenge_Luis&Romero
+Author: Luis-Romero1
+Author-email: luisdrtapia@gmail.com
+Project-URL: Bug Tracker, https://github.com/Luis-Romero1/ABIChallenge_Luis&Romero/issues
+
+# Classification challenge Iris Dataset
+
+
+## Full understanding workflows
+
+Description
+
+This app is designed to generate predictions based on user requests. It consists of two main components: a training module (main.py) and a prediction API (app.py). The codebase is modularized to ensure ease of maintenance and scalability.
+```
+File hierarchy
+ 1- main.py (training) app.py (Predict API)
+ 2- pipeline files
+ 3. component files
+ 4- common files
+ 5- configuration file
+```
+
+Description of funtionality
+
+For each type of file in the highest-level category, a corresponding pipeline file is invoked in the respective order. These pipeline files dictate the overall functionality and can operate by issuing lower-level instructions, such as components that distinguish between local environment (developer) instructions and those required for cloud (production) deployment. Each of these lower-level functionalities is housed within the common functions, which operate based on an established configuration. At this stage of model deployment, only one model is presented, as the process is designed to utilize the necessary and sufficient resources to generate a prediction-capable API. This approach allows for the creation of an environment that facilitates the search for a better model through data research and the use of a version control system for models, such as MLflow.
+
+It is important to note that this solution only demonstrates the code for a developer environment. However, integrating it into a production environment would follow the same standards, with the most crucial aspect being the addition of common functions. These functions would allow the code to interact with different cloud components and, depending on the environment variables, choose the appropriate functions to run the code. This would facilitate interaction between the various parts while maintaining the same flow: extract, train, and predict.
+
+Directory structure of the project folders.
+```
+app/
+  .github/
+  config/
+    config.yaml
+  model/
+    model.pkl
+  research/
+    trials.ipynb
+src/
+  Classifier/
+    components/
+      data_extraction.py
+      data_predict.py
+      data_train.py
+  config/
+    configuration.py
+  constants/
+  pipeline/
+    Stage_01_data_extraction.py
+    Stage_02_data_train.py
+    Stage_03_data_predict.py
+  utils/
+    common.py
+.env
+.gitignore
+app.py
+Dockerfile
+main.py
+params.yaml
+prepare_db.py
+README.md
+requirements.txt
+setup.py
+```
+
+##### Configutaion Locally
+Run this to export as env variables:
+
+Ensure to use the same variables as the .env and also in the database
+```bash
+
+export ENV=Developer
+
+export DB_USER= ... 
+
+export DB_PASSWORD= ...
+
+export DB_HOST= Local_IP:3306(example)
+
+```
+DATABASE PART
+
+Create a MySQL database and table to store Iris_dataset and prediction with help of init.sql
+
+Set new user with the enviroment variables
+
+CODE PART
+
+(Run manually) 
+
+Create an enviroment with nenv
+
+Install requirements on python 3.8
+
+Run main.py to train the model if necesary
+
+Run app.py to create an API that can make predictions with the help of trial_API.ipynb
+
+(Run with docker)
+
+Having installed docker and created the database
+
+docker built -t <name of image>
+
+docker run <name of image> (this creates API)
+
+# Explanation of architecture on AWS
+
+![image](https://github.com/user-attachments/assets/b332bc56-05cb-4314-be5d-da3ad9ffc58c)
+
+This AWS architecture supports continuous integration and deployment, where the changes pushed to GitHub are first analyzed by SonarCloud, and after passing quality checks, GitHub Actions deploys the code to an EC2 instance, where a Docker image is created and stored in ECR. This image is used for custom model training in SageMaker, with the trained model exposed as an endpoint.
+When a client sends a prediction request, it is received by API Gateway and processed by a Lambda function, which forwards it to the SageMaker endpoint, the results are stored in an RDS database for future reference. This setup ensures efficient deployment and scalable handling of predictions.
+
+# AWS-Deployment-with-Github-Actions
+
+## 1. Login to AWS console.
+
+## 2. Create IAM user for deployment
+
+	#with specific access
+
+	1. EC2 access : It is virtual machine
+
+	2. ECR: Elastic Container registry to save your docker image in aws
+
+    3. SGM: Amazon Sage Maker to train the model in the image and deploy the endpoint for prediction
+    
+    4. RDS: Amazon RDS for relational storage
+
+	#Description: About the deployment with Github actions and zonar cloud
+	
+	1. Build docker image of the source code
+
+	2. Push your docker image to ECR 
+
+	4. Pull the image from ECR in SGM
+
+	5. Lauch Job for training model in SGM
+	
+	6. Deployment of endpoint, and connection with lambda and API Gateway
+
+	#Policy:
+
+	1. AmazonEC2ContainerRegistryFullAccess
+
+	2. AmazonEC2FullAccess
+
+	3. AmazonSageMakerFullAccess
+	
+## 3. Create Databases on Amazon RDS to storage historical data and petition+prediction
+	
+## 4. Create ECR repo to store/save docker image
+    - Save the URI: ...
+	
+## 5. Create EC2 machine (Ubuntu)  
+		
+## 6. Setup github secrets:
+
+It is essential to handle secrets correctly. Locally, a .env file is used to store variables, which can also be managed through Docker, or by using GitHub's secret management feature.
+    
+    AWS_ACCESS_KEY_ID= ...
+
+    AWS_SECRET_ACCESS_KEY= ...
+
+    AWS_REGION = ...
+
+    AWS_ECR_LOGIN_URI = ...
+
+    ECR_REPOSITORY_NAME = ABIChallenge_Luis&Romero
+
+    ENV=Production
+
+    USER= ...
+
+    DB_PASSWORD= ...
+
+    DB_HOST= ...
+    
+    Zonar_cloud_personal_token= ...
+
+## 7. Setup github actions file:
+The first step to create this file is to add the cloud zoning process, where an exhaustive review must be conducted. Depending on the results, this review can halt the deployment triggered by a change in the main branch on GitHub. The subsequent steps would involve copying the repository to the EC2 instance, creating the image, and storing it in ECS. Afterward, this image will be used in SageMaker to generate the endpoint that will be utilized by Lambda and API Gateway for making predictions.
+
+## 8. Additional considerations for exploration of the better solution:
+Although this part of deploying a model involves using the unique and necessary resources, it's important to mention that the selection of the best parameters or model comes from an exhaustive search and testing in another environment. In this sense, it is possible to consider a two-part testing environment: one local, implemented with MLflow (which is also deployed in the cloud) to run local tests and get an idea without consuming valuable cloud resources, and a second part integrated with SageMaker and also MLflow to conduct the final complete tests. This allows you to identify the optimal values that will be sent to production, using this solution as an example.
+
+## 9. Deploy new funcionalities of other branches:
+
+It's essential to follow branching strategies to maintain clear and organized development workflows. So, first we need to create feature1 branches directly from master and when we know the code is correct made the merge. In the same way we can create a feature2 branch and independly a developer branch to create new funtionalities in this case we merge fisrt feature 2 and after developer branch, the code to do that go as follow.
+
+```
+git checkout -b feature1
+git pull origin feature1
+git add .
+git commit -m "Feature1 implementation"
+git push origin feature1
+git checkout master
+git merge feature1
+
+git checkout master
+git checkout -b feature2
+
+git checkout master
+git checkout -b developer
+
+git checkout feature2
+git pull origin feature2
+git add .
+git commit -m "Feature2 implementation"
+git push origin feature2
+git checkout master
+git merge feature2
+
+git checkout developer
+git pull origin developer
+git add .
+git commit -m "Developer implementation"
+git push origin developer
+git checkout master
+git merge developer
+```

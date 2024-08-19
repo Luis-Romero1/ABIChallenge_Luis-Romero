@@ -54,8 +54,17 @@ class pass_train:
     
         model_lr = LogisticRegression(solver=best_params["algo__solver"], C=best_params["algo__C"],penalty=self.penal, random_state=42)
         model_lr.fit(self.x_train, self.y_train)
-    
-        joblib.dump(model_lr,self.conf["trained_model_path"])    
+
+        
+
+        if os.getenv("ENV")=="developer":
+            pathf=self.conf["trained_model_path"]
+        else:
+            object_key = 'iris-sagemaker/model_train/model.csv'
+
+            pathf=os.getenv("ACESS_POINT")+object_key   
+
+        joblib.dump(model_lr,pathf)    
         
 
 
