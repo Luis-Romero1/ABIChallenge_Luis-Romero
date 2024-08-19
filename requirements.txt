@@ -12,7 +12,8 @@ Flask-Cors
 scikit-learn
 requests
 python-dotenv
-mysql-connector-
+mysql-connector-python
 boto3
 sagemaker
+Python-IO
 -e .

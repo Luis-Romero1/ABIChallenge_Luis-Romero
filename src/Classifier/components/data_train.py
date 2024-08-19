@@ -12,6 +12,8 @@ from sklearn.pipeline import Pipeline
 import pickle
 import joblib  
 import os
+import io
+import boto3
 
 
 class pass_train:
@@ -59,12 +61,20 @@ class pass_train:
 
         if os.getenv("ENV")=="developer":
             pathf=self.conf["trained_model_path"]
+            joblib.dump(model_lr,pathf)
         else:
-            object_key = 'iris-sagemaker/model_train/model.csv'
+            path_s3 = 'iris-sagemaker/model_train/model.joblib'
 
-            pathf=os.getenv("ACESS_POINT")+object_key   
+            access_point=os.getenv("ACESS_POINT")   
 
-        joblib.dump(model_lr,pathf)    
+            model_buffer = io.BytesIO()
+            joblib.dump(model_lr, model_buffer)
+            model_buffer.seek(0)  
+            s3 = boto3.client('s3')
+
+            s3.upload_fileobj(model_buffer, access_point, path_s3,ExtraArgs={'ACL': 'bucket-owner-full-control'})
+
+            
         
 
 

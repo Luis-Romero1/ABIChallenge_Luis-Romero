@@ -1,12 +1,13 @@
-from sagemaker.sklearn.model import SKLearnModel,SKLearn
+from sagemaker.sklearn.model import SKLearnModel
+from sagemaker.sklearn.estimator import SKLearn
 import os
 
 FRAMEWORK_VERSION = "0.23-1"
 
 
 endpoint_name="Iris_endpoint"
-# Especifica tu rol de IAM
-rolef = 'arn:aws:iam::123456789012:role/SageMakerRole'
+
+rolef = os.getenv("ROLL_IAM")
 
 #subnet privada
 # subnet-0481d2f1cb01b8236
