@@ -89,5 +89,7 @@ jobs:
           SUBPRI: ${{ secrets.SUBPRI }}
           ECR_REPOSITORY_NAME: ${{ secrets.ECR_REPOSITORY_NAME }}
         run: |
+          source ~/conectdataf/bin/activate
           pip install boto3 sagemaker
           python sagemaker_main_model.py
+        shell: bash
