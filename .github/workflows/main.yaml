@@ -57,7 +57,7 @@ jobs:
           IMAGE_TAG: latest
       # - name: Run Docker Image to serve users
         run: |
-         docker build cls .#-t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+         docker build -t cls .#-t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           
          docker run -d \
             -p 8080:8080 \
