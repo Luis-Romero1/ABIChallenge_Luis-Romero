@@ -63,16 +63,28 @@ class pass_train:
             pathf=self.conf["trained_model_path"]
             joblib.dump(model_lr,pathf)
         else:
-            path_s3 = 'iris-sagemaker/model_train/model.joblib'
+            model_dir = os.environ.get('SM_MODEL_DIR', '/opt/ml/model')
 
-            access_point="arn:aws:s3:us-east-1:211125717993:accesspoint/iris-in180392"#os.getenv("ACESS_POINT")   
+            # Guardar el modelo en la ruta especificada
+            model_path = os.path.join(model_dir, 'model.joblib')
+            joblib.dump(model_lr, model_path)
 
-            model_buffer = io.BytesIO()
-            joblib.dump(model_lr, model_buffer)
-            model_buffer.seek(0)  
-            s3 = boto3.client('s3')
+            # clf = joblib.load(os.path.join(os.environ.get("SM_MODEL_DIR"), "model.joblib"))
 
-            s3.upload_fileobj(model_buffer, access_point, path_s3,ExtraArgs={'ACL': 'bucket-owner-full-control'})
+            
+            # model_path = os.path.join(clf, "model.joblib")
+            # joblib.dump(model,model_path)
+
+            # path_s3 = 'iris-sagemaker/model_train/model.joblib'
+
+            # access_point="arn:aws:s3:us-east-1:211125717993:accesspoint/iris-in180392"#os.getenv("ACESS_POINT")   
+
+            # model_buffer = io.BytesIO()
+            # joblib.dump(model_lr, model_buffer)
+            # model_buffer.seek(0)  
+            # s3 = boto3.client('s3')
+
+            # s3.upload_fileobj(model_buffer, access_point, path_s3,ExtraArgs={'ACL': 'bucket-owner-full-control'})
 
             
         
