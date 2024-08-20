@@ -2,22 +2,26 @@ import boto3
 import sagemaker
 from sagemaker.estimator import Estimator
 import os
+import time
 
-# Configurar el cliente de SageMaker
+
 boto_session = boto3.Session(region_name=os.getenv('AWS_REGION'))
 sagemaker_session = sagemaker.Session(boto_session=boto_session)
 role = os.getenv("ROLL_IAM")
 
-# Configurar VPC
+
 vpc_config = {
     'Subnets': [os.getenv("SUBPRI"), os.getenv("SUBDB")],
     'SecurityGroupIds': [os.getenv("SGIN"), os.getenv("SGOUT")]
 }
 
-# Obtener la URI de la imagen de ECR
+
 ecr_image = f"{os.getenv('AWS_ECR_LOGIN_URIX')}/{os.getenv('ECR_REPOSITORY_NAME')}:latest"
 
-# Configurar el estimador
+
+job_name = f"iris-training-{int(time.time())}"
+
+
 estimator = Estimator(
     image_uri=ecr_image,
     role=role,
@@ -37,14 +41,21 @@ estimator = Estimator(
     }
 )
 
-# Entrenar el modelo
-estimator.fit()
 
-# Desplegar el modelo
-predictor = estimator.deploy(
-    initial_instance_count=1,
-    instance_type="ml.m4.xlarge",
-    endpoint_name="Iris_endpoint"
-)
+try:
+    estimator.fit(job_name=job_name)
+except Exception as e:
+    print(f"Error durante el entrenamiento: {str(e)}")
+    raise
 
-print("Modelo entrenado y desplegado exitosamente.")
+
+try:
+    predictor = estimator.deploy(
+        initial_instance_count=1,
+        instance_type="ml.m4.xlarge",
+        endpoint_name=f"iris-endpoint-{int(time.time())}"
+    )
+    print("Modelo entrenado y desplegado exitosamente.")
+except Exception as e:
+    print(f"Error durante el despliegue: {str(e)}")
+    raise
