@@ -72,7 +72,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ${{ secrets.REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -94,8 +94,8 @@ jobs:
             --name=cls \
             -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' \
             -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' \
-            -e 'AWS_REGION=${{ secrets.AWS_REGION }}' \
-            -e 'AWS_ECR_LOGIN_URI=${{ secrets.AWS_ECR_LOGIN_URIX }}' \
+            -e 'AWS_REGION=${{ secrets.REGION }}' \
+            -e 'AWS_ECR_LOGIN_URI=${{ secrets.AWS_ECR_LOGIN_URI }}' \
             -e 'ECR_REPOSITORY_NAME=${{ secrets.ECR_REPOSITORY_NAME }}' \
             -e 'DB_HOST=${{ secrets.DB_HOST }}' \
             -e 'DB_PASSWORD=${{ secrets.DB_PASSWORD }}' \
