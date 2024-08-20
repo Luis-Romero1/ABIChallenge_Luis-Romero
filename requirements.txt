@@ -16,4 +16,3 @@ mysql-connector-python
 boto3
 sagemaker
 Python-IO
--e .
