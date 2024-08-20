@@ -57,11 +57,11 @@ jobs:
           IMAGE_TAG: latest
       # - name: Run Docker Image to serve users
         run: |
-         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+         docker build cls .#-t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           
          docker run -d \
             -p 8080:8080 \
-            --name=cls \
+            #--name=cls \
             -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' \
             -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' \
             -e 'AWS_REGION=${{ secrets.REGION }}' \
@@ -73,8 +73,10 @@ jobs:
             -e 'ENV=${{ secrets.ENV }}' \
             -e 'ROLL_IAM=${{ secrets.ROLL_IAM }}' \
             -e 'ECR_REPOSITORY_NAME: ${{ secrets.ECR_REPOSITORY_NAME }}' \
-            $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+            cls 
+            #$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+         
+         #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       # - name: Push Docker Image to serve users
           
       # - name: Clean previous images and containers
