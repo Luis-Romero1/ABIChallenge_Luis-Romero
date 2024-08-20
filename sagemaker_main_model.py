@@ -1,68 +1,50 @@
-from sagemaker.sklearn.model import SKLearnModel
-from sagemaker.sklearn.estimator import SKLearn
+import boto3
+import sagemaker
+from sagemaker.estimator import Estimator
 import os
 
-FRAMEWORK_VERSION = "0.23-1"
+# Configurar el cliente de SageMaker
+boto_session = boto3.Session(region_name=os.getenv('AWS_REGION'))
+sagemaker_session = sagemaker.Session(boto_session=boto_session)
+role = os.getenv("ROLL_IAM")
 
+# Configurar VPC
+vpc_config = {
+    'Subnets': [os.getenv("SUBPRI"), os.getenv("SUBDB")],
+    'SecurityGroupIds': [os.getenv("SGIN"), os.getenv("SGOUT")]
+}
 
-endpoint_name="Iris_endpoint"
+# Obtener la URI de la imagen de ECR
+ecr_image = f"{os.getenv('AWS_ECR_LOGIN_URIX')}/{os.getenv('ECR_REPOSITORY_NAME')}:latest"
 
-rolef = os.getenv("ROLL_IAM")
-
-#subnet privada
-# subnet-0481d2f1cb01b8236
-#db subnet
-#subnet-064f2feaf0c3d4c0a
-# Configuración de VPC
-
-####SECURITYGROUP
-#OUT
-#sg-0078bd29f6e0aa50c
-#INBOUND
-#sg-0c4847fce2396e1be
-try:
-    vpc_configf = {
-        'Subnets': [os.getenv("SUBPRI"), os.getenv("SUBDB")],  # Tus subnets
-        'SecurityGroupIds': [os.getenv("SGIN"),os.getenv("SGOUT")]  # Tus security groups
-    }
-except:
-    vpc_configf = {
-        'Subnets': ["subnet-0481d2f1cb01b8236", "subnet-064f2feaf0c3d4c0a"],  # Tus subnets
-        'SecurityGroupIds': ["sg-0c4847fce2396e1be","sg-0078bd29f6e0aa50c"]  # Tus security groups
-    }
-
-# Definir el estimador y entrenar
-sklearn_estimator = SKLearn(
-    entry_point="main.py",
-    role=rolef,
+# Configurar el estimador
+estimator = Estimator(
+    image_uri=ecr_image,
+    role=role,
     instance_count=1,
     instance_type="ml.m5.large",
-    framework_version=FRAMEWORK_VERSION,
-    base_job_name="Custom-iris-sklearn",
+    vpc_config=vpc_config,
     use_spot_instances=True,
-    vpc_config=vpc_configf,
     max_wait=7200,
-    max_run=3600
+    max_run=3600,
+    sagemaker_session=sagemaker_session,
+    environment={
+        "ACESS_POINT": os.getenv("ACESS_POINT"),
+        "DB_HOST": os.getenv("DB_HOST"),
+        "DB_PASSWORD": os.getenv("DB_PASSWORD"),
+        "DB_USER": os.getenv("DB_USER"),
+        "ENV": os.getenv("ENV")
+    }
 )
 
-# Entrenamiento del modelo
-sklearn_estimator.fit(wait=True)
+# Entrenar el modelo
+estimator.fit()
 
-# Recuperar la ubicación de los artefactos del modelo en S3
-model_data = sklearn_estimator.model_data
-
-# Crear un objeto SKLearnModel usando los artefactos del modelo en S3
-model = SKLearnModel(
-    model_data=model_data,
-    role=rolef,
-    entry_point="main.py",  # Mismo script que usaste para entrenar
-    framework_version=FRAMEWORK_VERSION,
-    vpc_config=vpc_configf
-)
-
-# Desplegar el modelo como un endpoint
-predictor = model.deploy(
+# Desplegar el modelo
+predictor = estimator.deploy(
     initial_instance_count=1,
     instance_type="ml.m4.xlarge",
-    endpoint_name=endpoint_name,
+    endpoint_name="Iris_endpoint"
 )
+
+print("Modelo entrenado y desplegado exitosamente.")

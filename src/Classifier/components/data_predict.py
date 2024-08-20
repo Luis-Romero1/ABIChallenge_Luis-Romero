@@ -31,7 +31,7 @@ class PredictAPI:
         for i, pred in enumerate(predictions):
             self.cursor.execute("""
                 INSERT INTO predictions (sepal_length, sepal_width, petal_length, petal_width, pred_species, time_pred)
-                VALUES (%s, %s, %s, %s, %s, %f)
+                VALUES (%s, %s, %s, %s, %s, %s)
             """, (*inputs[i], pred, curr_time))
         self.db.commit()
 

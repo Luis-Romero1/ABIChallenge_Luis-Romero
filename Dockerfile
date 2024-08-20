@@ -1,21 +1,11 @@
-# Usa la imagen base de Python 3.8
-FROM python:3.8
+FROM python:3.12.3-slim-buster
 
-# Establece el directorio de trabajo en el contenedor
-WORKDIR .
+RUN apt update -y && apt install awscli -y
+WORKDIR /app
 
-# Copia todos los archivos del directorio actual al contenedor
-COPY . .
-
-# Instala las dependencias
+COPY . /app
 RUN pip install -r requirements.txt
 
-# Establece las variables de ambiente
-ENV MYSQL_USER=default_user
-ENV MYSQL_PASSWORD=default_password
-ENV MYSQL_DATABASE=iris_db
-ENV MYSQL_TABLE=iris_dataset
-
-CMD python main.py && python app.py
+CMD ["python3", "app.py"]
 
 

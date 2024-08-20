@@ -1,0 +1,170 @@
+name: workflow
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Lint code
+        run: echo "Linting repository"
+
+      - name: Run unit tests
+        run: echo "Running unit tests"
+
+  build-and-push-ecr-image:
+    name: Continuous Delivery
+    needs: integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq unzip
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
+          IMAGE_TAG: latest
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          
+          
+  Continuous-Deployment:
+    needs: build-and-push-ecr-image
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      
+      
+      - name: Pull latest images
+        run: |
+         docker pull ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+         
+      - name: Run sagmeker training and deployment of endpoint
+        run: |
+          
+          sudo apt-get install -y jq unzip   
+
+          
+      # - name: Stop and remove container if running
+      #   run: |
+      #    docker ps -q --filter "name=cnncls" | grep -q . && docker stop cnncls && docker rm -fv cnncls
+       
+      # - name: Run Docker Image to serve users
+      #   run: |
+      #    docker run -d -p 8080:8080 --name=cnncls -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+      # - name: Clean previous images and containers
+      #   run: |
+      #    docker system prune -f
+
+
+
+
+
+
+
+      ###############
+      from sagemaker.sklearn.model import SKLearnModel
+from sagemaker.sklearn.estimator import SKLearn
+import os
+
+FRAMEWORK_VERSION = "0.23-1"
+
+
+endpoint_name="Iris_endpoint"
+
+rolef = os.getenv("ROLL_IAM")
+
+
+try:
+    vpc_configf = {
+        'Subnets': [os.getenv("SUBPRI"), os.getenv("SUBDB")],  # Tus subnets
+        'SecurityGroupIds': [os.getenv("SGIN"),os.getenv("SGOUT")]  # Tus security groups
+    }
+except:
+    vpc_configf = {
+        'Subnets': ["subnet-0481d2f1cb01b8236", "subnet-064f2feaf0c3d4c0a"],  # Tus subnets
+        'SecurityGroupIds': ["sg-0c4847fce2396e1be","sg-0078bd29f6e0aa50c"]  # Tus security groups
+    }
+
+# Definir el estimador y entrenar
+sklearn_estimator = SKLearn(
+    entry_point="main.py",
+    role=rolef,
+    instance_count=1,
+    instance_type="ml.m5.large",
+    framework_version=FRAMEWORK_VERSION,
+    base_job_name="Custom-iris-sklearn",
+    use_spot_instances=True,
+    vpc_config=vpc_configf,
+    max_wait=7200,
+    max_run=3600
+)
+
+# Entrenamiento del modelo
+sklearn_estimator.fit(wait=True)
+
+# Recuperar la ubicación de los artefactos del modelo en S3
+model_data = sklearn_estimator.model_data
+
+# Crear un objeto SKLearnModel usando los artefactos del modelo en S3
+model = SKLearnModel(
+    model_data=model_data,
+    role=rolef,
+    entry_point="main.py",  # Mismo script que usaste para entrenar
+    framework_version=FRAMEWORK_VERSION,
+    vpc_config=vpc_configf
+)
+
+# Desplegar el modelo como un endpoint
+predictor = model.deploy(
+    initial_instance_count=1,
+    instance_type="ml.m4.xlarge",
+    endpoint_name=endpoint_name,
+)
