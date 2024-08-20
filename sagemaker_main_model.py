@@ -10,10 +10,10 @@ sagemaker_session = sagemaker.Session(boto_session=boto_session)
 role = os.getenv("ROLL_IAM")
 
 
-vpc_config = {
-    'Subnets': [os.getenv("SUBPRI"), os.getenv("SUBDB")],
-    'SecurityGroupIds': [os.getenv("SGIN"), os.getenv("SGOUT")]
-}
+# vpc_config = {
+#     'Subnets': [os.getenv("SUBPRI"), os.getenv("SUBDB")],
+#     'SecurityGroupIds': [os.getenv("SGIN"), os.getenv("SGOUT")]
+# }
 
 
 ecr_image = f"{os.getenv('AWS_ECR_LOGIN_URIX')}/{os.getenv('ECR_REPOSITORY_NAME')}:latest"
@@ -27,7 +27,7 @@ estimator = Estimator(
     role=role,
     instance_count=1,
     instance_type="ml.m5.large",
-    vpc_config=vpc_config,
+    # vpc_config=vpc_config,
     use_spot_instances=True,
     max_wait=7200,
     max_run=3600,
