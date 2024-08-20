@@ -65,7 +65,7 @@ class pass_train:
         else:
             path_s3 = 'iris-sagemaker/model_train/model.joblib'
 
-            access_point=os.getenv("ACESS_POINT")   
+            access_point="arn:aws:s3:us-east-1:211125717993:accesspoint/iris-in180392"#os.getenv("ACESS_POINT")   
 
             model_buffer = io.BytesIO()
             joblib.dump(model_lr, model_buffer)
