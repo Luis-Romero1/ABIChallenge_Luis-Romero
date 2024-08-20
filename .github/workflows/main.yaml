@@ -74,24 +74,24 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.REGION }}
 
-      - name: Run SageMaker training and deployment
-        env:
-          AWS_REGION: ${{ secrets.REGION }}
-          ACESS_POINT: ${{ secrets.ACESS_POINT }}
-          AWS_ECR_LOGIN_URIX: ${{ secrets.AWS_ECR_LOGIN_URIX }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_USER: ${{ secrets.DB_USER }}
-          ENV: ${{ secrets.ENV }}
-          ROLL_IAM: ${{ secrets.ROLL_IAM }}
-          SGIN: ${{ secrets.SGIN }}
-          SGOUT: ${{ secrets.SGOUT }}
-          SUBDB: ${{ secrets.SUBDB }}
-          SUBPRI: ${{ secrets.SUBPRI }}
-          ECR_REPOSITORY_NAME: ${{ secrets.ECR_REPOSITORY_NAME }}
-        run: |
-          source ~/conectdataf/bin/activate
-          pip install --upgrade pip
-          pip install boto3 sagemaker setuptools
-          python sagemaker_main_model.py
-        shell: bash
+      # - name: Run SageMaker training and deployment
+      #   env:
+      #     AWS_REGION: ${{ secrets.REGION }}
+      #     ACESS_POINT: ${{ secrets.ACESS_POINT }}
+      #     AWS_ECR_LOGIN_URIX: ${{ secrets.AWS_ECR_LOGIN_URIX }}
+      #     DB_HOST: ${{ secrets.DB_HOST }}
+      #     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      #     DB_USER: ${{ secrets.DB_USER }}
+      #     ENV: ${{ secrets.ENV }}
+      #     ROLL_IAM: ${{ secrets.ROLL_IAM }}
+      #     SGIN: ${{ secrets.SGIN }}
+      #     SGOUT: ${{ secrets.SGOUT }}
+      #     SUBDB: ${{ secrets.SUBDB }}
+      #     SUBPRI: ${{ secrets.SUBPRI }}
+      #     ECR_REPOSITORY_NAME: ${{ secrets.ECR_REPOSITORY_NAME }}
+      #   run: |
+      #     source ~/conectdataf/bin/activate
+      #     pip install --upgrade pip
+      #     pip install boto3 sagemaker setuptools
+      #     python sagemaker_main_model.py
+        # shell: bash

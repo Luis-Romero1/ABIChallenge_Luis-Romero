@@ -1,11 +1,18 @@
-FROM python:3.8-slim-buster
+Usar una imagen base de Python
+FROM python:3.8-slim
 
-RUN apt update -y && apt install awscli -y
+# Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-COPY . /app
-RUN pip install -r requirements.txt
+# Copiar el archivo requirements.txt al directorio de trabajo
+COPY requirements.txt .
 
-CMD ["python3", "app.py"]
+# Instalar las dependencias especificadas en requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Copiar el resto del código de la aplicación
+COPY . .
+
+# Establecer el comando de inicio por defecto
+CMD ["python", "main.py"]
 
