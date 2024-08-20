@@ -107,6 +107,7 @@ jobs:
       - name: Clean previous images and containers
         run: |
          docker system prune -f
+         
   # Continuous-Deployment:
   #   needs: build-and-push-ecr-image
   #   runs-on: self-hosted
