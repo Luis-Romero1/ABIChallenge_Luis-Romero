@@ -16,9 +16,9 @@ class ConfigurationManager:
     def get_data_extraction_config(self):
         config = self.config["data_extraction"]
 
-        data_extraction_config = {"user":os.getenv("DB_USER"),
-            "password":os.getenv("DB_PASSWORD"),
-            "host":os.getenv("DB_HOST"),
+        data_extraction_config = {"user":"iris1",#os.getenv("DB_USER"),
+            "password":"Xi25_PS6iww9os?z3",#os.getenv("DB_PASSWORD"),
+            "host":"iris-db-instance.c3kq6wgkc2hl.us-east-1.rds.amazonaws.com,"#os.getenv("DB_HOST"),
             "database":config["database"],
             "table":config["table"] }
 
