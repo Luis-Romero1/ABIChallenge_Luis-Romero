@@ -60,6 +60,7 @@ jobs:
           aws configure set region ${{ secrets.REGION }}
           python app2.py
 
+
       # - name: Install Utilities
       #   run: |
       #     sudo apt-get update
