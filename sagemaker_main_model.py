@@ -10,10 +10,10 @@ sagemaker_session = sagemaker.Session(boto_session=boto_session)
 role = os.getenv("ROLL_IAM")
 
 
-# vpc_config = {
-#     'Subnets': [os.getenv("SUBPRI"), os.getenv("SUBDB")],
-#     'SecurityGroupIds': [os.getenv("SGIN"), os.getenv("SGOUT")]
-# }
+vpc_config = {
+    'Subnets': [os.getenv("SUBPRI"), os.getenv("SUBDB")],
+    'SecurityGroupIds': [os.getenv("SGIN"), os.getenv("SGOUT")]
+}
 
 
 ecr_image = f"{os.getenv('AWS_ECR_LOGIN_URIX')}/{os.getenv('ECR_REPOSITORY_NAME')}:latest"
@@ -21,13 +21,17 @@ ecr_image = f"{os.getenv('AWS_ECR_LOGIN_URIX')}/{os.getenv('ECR_REPOSITORY_NAME'
 
 job_name = f"iris-training-{int(time.time())}"
 
+training_image_config = {
+    'TrainingRepositoryAccessMode': 'VPC'
+}
+
 
 estimator = Estimator(
     image_uri=ecr_image,
     role=role,
     instance_count=1,
     instance_type="ml.m5.large",
-    # vpc_config=vpc_config,
+    vpc_config=vpc_config,
     use_spot_instances=True,
     max_wait=7200,
     max_run=3600,
@@ -38,7 +42,7 @@ estimator = Estimator(
         "DB_PASSWORD": os.getenv("DB_PASSWORD"),
         "DB_USER": os.getenv("DB_USER"),
         "ENV": os.getenv("ENV")
-    }
+    },training_image_config=training_image_config
 )
 
 
