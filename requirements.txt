@@ -9,7 +9,6 @@ types-PyYAML
 scipy
 Flask
 Flask-Cors
-sagemaker-training
 scikit-learn
 requests
 python-dotenv
