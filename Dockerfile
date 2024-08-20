@@ -1,4 +1,4 @@
-Usar una imagen base de Python
+#Usar una imagen base de Python
 FROM python:3.8-slim
 
 # Establecer el directorio de trabajo dentro del contenedor
