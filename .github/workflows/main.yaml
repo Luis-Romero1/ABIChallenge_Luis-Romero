@@ -90,6 +90,7 @@ jobs:
           ECR_REPOSITORY_NAME: ${{ secrets.ECR_REPOSITORY_NAME }}
         run: |
           source ~/conectdataf/bin/activate
-          pip install boto3 sagemaker
+          pip install --upgrade pip
+          pip install boto3 sagemaker setuptools
           python sagemaker_main_model.py
         shell: bash
