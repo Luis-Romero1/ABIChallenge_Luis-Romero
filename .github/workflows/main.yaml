@@ -1,3 +1,5 @@
+name: workflow
+
 on:
   push:
     branches:
@@ -12,52 +14,46 @@ permissions:
 jobs:
   integration:
     name: Continuous Integration
-    runs-on: self-hosted 
-    #runs-on: ubuntu-latest
+    runs-on: self-hosted
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Lint code
-        run: echo "Linting repository"
+      - name: Create app directory
+        run: mkdir -p ~/app  # Crear el directorio `~/app` en la máquina self-hosted
 
-      - name: Run unit tests
-        run: echo "Running unit tests"
+      - name: Copy repository files to app directory
+        run: cp -R $GITHUB_WORKSPACE/* ~/app  # Copiar todos los archivos al directorio `~/app`
 
-  build-and-push-ecr-image:
-    name: Continuous Delivery
-    needs: integration
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      # 2. Set up Python (Version configurable)
+      # 1. Set up Python (Version configurable)
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
   
-      # 3. Crear el entorno virtual y activar
+      # 2. Crear el entorno virtual y activar
       - name: Install dependencies and activate environment
         run: |
+          cd ~/app  # Cambiar al directorio `~/app`
           python -m venv venv  # Crear el entorno virtual en la carpeta `venv`
           source venv/bin/activate  # Activar el entorno virtual
           pip install --upgrade pip  # Actualizar pip
           pip install -r requirements.txt  # Instalar las dependencias
   
-      # 4. Establecer variables de entorno y ejecutar main.py
+      # 3. Establecer variables de entorno y ejecutar main.py
       - name: Set environment variables and run main.py
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.REGION }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_USER: ${{ secrets.DB_USER }}
           ENV: ${{ secrets.ENV }}
           ROLL_IAM: ${{ secrets.ROLL_IAM }}
         run: |
+          cd ~/app  # Asegúrate de estar en el directorio `~/app`
           source venv/bin/activate  # Asegúrate de que el entorno esté activo
           python main.py
 
