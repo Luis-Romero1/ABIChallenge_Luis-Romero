@@ -5,7 +5,9 @@ from Classifier.pipeline.Stage_02_data_train import ModelTrainingPipeline
 
 
 STAGE_NAME = "Data Extraction stage"
-
+def model_fn(model_dir):
+    clf = joblib.load(os.path.join(model_dir, "model.joblib"))
+    return clf
 
 try:
     logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
