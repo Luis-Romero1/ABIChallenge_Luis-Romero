@@ -21,6 +21,9 @@ ecr_image = f"{os.getenv('AWS_ECR_LOGIN_URIX')}/{os.getenv('ECR_REPOSITORY_NAME'
 
 job_name = f"iris-training-{int(time.time())}"
 
+training_image_config = {
+    "TrainingRepositoryAccessMode": "VPC"
+}
 
 estimator = Estimator(
     image_uri=ecr_image,
@@ -38,7 +41,8 @@ estimator = Estimator(
         "DB_PASSWORD": os.getenv("DB_PASSWORD"),
         "DB_USER": os.getenv("DB_USER"),
         "ENV": os.getenv("ENV")
-    }
+    },
+    training_image_config=training_image_config
 )
 
 
