@@ -5,7 +5,7 @@ import os
 FRAMEWORK_VERSION = "0.23-1"
 
 
-endpoint_name="Iris_endpoint"
+endpoint_name="Iris-endpoint-V2"
 
 rolef = os.getenv("ROLL_IAM")
 
