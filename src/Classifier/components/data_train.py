@@ -82,8 +82,8 @@ class pass_train:
 
             model_buffer = io.BytesIO()
             joblib.dump(model_lr, model_buffer)
-            # model_buffer.seek(0)  
-            # s3 = boto3.client('s3')
+            model_buffer.seek(0)  
+            s3 = boto3.client('s3')
 
             s3.upload_fileobj(model_buffer, access_point, path_s3,ExtraArgs={'ACL': 'bucket-owner-full-control'})
 
