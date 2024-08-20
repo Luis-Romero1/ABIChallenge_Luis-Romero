@@ -110,7 +110,7 @@ jobs:
 
 
       ###############
-      from sagemaker.sklearn.model import SKLearnModel
+from sagemaker.sklearn.model import SKLearnModel
 from sagemaker.sklearn.estimator import SKLearn
 import os
 

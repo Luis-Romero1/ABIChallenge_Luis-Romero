@@ -55,7 +55,7 @@ jobs:
         run: |
           cd ~/app  # Asegúrate de estar en el directorio `~/app`
           source venv/bin/activate  # Asegúrate de que el entorno esté activo
-          python main.py
+          python app2.py
 
       # - name: Install Utilities
       #   run: |

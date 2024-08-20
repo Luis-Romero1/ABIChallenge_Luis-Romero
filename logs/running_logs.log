@@ -298,3 +298,108 @@ x==========x]
 [2024-08-19 18:10:03,343: INFO: app: >>>>>> stage Predict completed <<<<<<
 
 x==========x]
+[2024-08-20 05:24:50,172: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-20 05:24:50,180: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-20 05:24:50,187: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-20 05:24:50,188: INFO: common: created directory at: artifacts]
+[2024-08-20 05:24:50,188: INFO: data_extraction: Extracting data from database]
+[2024-08-20 05:24:50,268: INFO: data_extraction: Extracteded data from database]
+[2024-08-20 05:24:50,268: INFO: main: >>>>>> stage Data Extraction stage completed <<<<<<
+
+x==========x]
+[2024-08-20 05:24:50,281: INFO: main: *******************]
+[2024-08-20 05:24:50,282: INFO: main: >>>>>> stage Training started <<<<<<]
+[2024-08-20 05:24:50,283: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-20 05:24:50,283: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-20 05:24:50,284: INFO: common: created directory at: artifacts]
+[2024-08-20 05:24:50,284: INFO: data_train: Starting training]
+[2024-08-20 05:24:50,289: INFO: common: Fitting Logistic Regression]
+[2024-08-20 05:24:50,716: INFO: common: Best Parameters: {'algo__C': 0.5, 'algo__solver': 'newton-cg'}]
+[2024-08-20 05:24:50,716: INFO: common: Best Score: 0.958]
+[2024-08-20 05:24:50,718: INFO: common: Train and Test Accuracy Score for train 96.667 and test 100.0]
+[2024-08-20 05:24:50,718: INFO: common: Finishing training]
+[2024-08-20 05:24:50,757: INFO: credentials: Found credentials in shared credentials file: ~/.aws/credentials]
+[2024-08-20 05:24:51,001: ERROR: main: expected string or bytes-like object]
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\main.py", line 27, in <module>
+    model_training.main(df)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\pipeline\Stage_02_data_train.py", line 17, in main
+    training.run_train()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\components\data_train.py", line 75, in run_train
+    s3.upload_fileobj(model_buffer, access_point, path_s3,ExtraArgs={'ACL': 'bucket-owner-full-control'})
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\boto3\s3\inject.py", line 635, in upload_fileobj
+    future = manager.upload(
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\s3transfer\manager.py", line 323, in upload
+    self._validate_if_bucket_supported(bucket)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\.venv\lib\site-packages\s3transfer\manager.py", line 492, in _validate_if_bucket_supported
+    match = pattern.match(bucket)
+TypeError: expected string or bytes-like object
+[2024-08-20 05:26:36,710: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-20 05:26:36,711: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-20 05:26:36,713: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-20 05:26:36,713: INFO: common: created directory at: artifacts]
+[2024-08-20 05:26:36,713: INFO: data_extraction: Extracting data from database]
+[2024-08-20 05:26:57,799: ERROR: main: local variable 'connection' referenced before assignment]
+Traceback (most recent call last):
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\main.py", line 13, in <module>
+    df=obj.main()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\pipeline\Stage_01_data_extraction.py", line 17, in main
+    return data_extraction.extract_info()
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\components\data_extraction.py", line 14, in extract_info
+    self.data=extract_workbench(self.config)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\utils\common.py", line 64, in extract_workbench
+    connection,cursor=conec_database(config)
+  File "C:\Users\luisd\OneDrive\Escritorio\proyecto trabajo\Prueba1.0\ABIChallenge_Luis-Romero\src\Classifier\utils\common.py", line 53, in conec_database
+    return connection,cursor
+UnboundLocalError: local variable 'connection' referenced before assignment
+[2024-08-20 05:29:17,733: INFO: main: >>>>>> stage Data Extraction stage started <<<<<<]
+[2024-08-20 05:29:17,734: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-20 05:29:17,736: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-20 05:29:17,736: INFO: common: created directory at: artifacts]
+[2024-08-20 05:29:17,736: INFO: data_extraction: Extracting data from database]
+[2024-08-20 05:29:17,767: INFO: data_extraction: Extracteded data from database]
+[2024-08-20 05:29:17,768: INFO: main: >>>>>> stage Data Extraction stage completed <<<<<<
+
+x==========x]
+[2024-08-20 05:29:17,777: INFO: main: *******************]
+[2024-08-20 05:29:17,777: INFO: main: >>>>>> stage Training started <<<<<<]
+[2024-08-20 05:29:17,778: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-20 05:29:17,779: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-20 05:29:17,779: INFO: common: created directory at: artifacts]
+[2024-08-20 05:29:17,780: INFO: data_train: Starting training]
+[2024-08-20 05:29:17,782: INFO: common: Fitting Logistic Regression]
+[2024-08-20 05:29:18,239: INFO: common: Best Parameters: {'algo__C': 0.5, 'algo__solver': 'newton-cg'}]
+[2024-08-20 05:29:18,239: INFO: common: Best Score: 0.958]
+[2024-08-20 05:29:18,241: INFO: common: Train and Test Accuracy Score for train 96.667 and test 100.0]
+[2024-08-20 05:29:18,241: INFO: common: Finishing training]
+[2024-08-20 05:29:18,249: INFO: main: >>>>>> stage Training completed <<<<<<
+
+x==========x]
+[2024-08-20 05:29:28,634: INFO: app: *******************]
+[2024-08-20 05:29:28,634: INFO: app: >>>>>> stage Predict started <<<<<<]
+[2024-08-20 05:29:28,635: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-20 05:29:28,636: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-20 05:29:28,636: INFO: common: created directory at: artifacts]
+[2024-08-20 05:29:28,637: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-20 05:29:28,638: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-20 05:29:28,639: INFO: common: created directory at: artifacts]
+[2024-08-20 05:29:28,699: INFO: _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000]
+[2024-08-20 05:29:28,699: INFO: _internal: [33mPress CTRL+C to quit[0m]
+[2024-08-20 05:29:28,701: INFO: _internal:  * Restarting with stat]
+[2024-08-20 05:29:30,024: INFO: app: *******************]
+[2024-08-20 05:29:30,024: INFO: app: >>>>>> stage Predict started <<<<<<]
+[2024-08-20 05:29:30,026: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-20 05:29:30,027: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-20 05:29:30,027: INFO: common: created directory at: artifacts]
+[2024-08-20 05:29:30,028: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2024-08-20 05:29:30,029: INFO: common: yaml file: params.yaml loaded successfully]
+[2024-08-20 05:29:30,030: INFO: common: created directory at: artifacts]
+[2024-08-20 05:29:30,056: WARNING: _internal:  * Debugger is active!]
+[2024-08-20 05:29:30,063: INFO: _internal:  * Debugger PIN: 775-250-452]
+[2024-08-20 05:29:34,339: INFO: app: >>>>>> stage Predict completed <<<<<<
+
+x==========x]
+[2024-08-20 05:29:34,481: INFO: app: >>>>>> stage Predict completed <<<<<<
+
+x==========x]
