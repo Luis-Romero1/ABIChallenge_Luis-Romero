@@ -1,15 +1,7 @@
-# Usar una imagen base de Python
-FROM python:3.8-slim
+FROM python:3.8-slim-buster
 
-# Establecer el directorio de trabajo dentro del contenedor
-WORKDIR /app
+RUN apt update -y && apt install awscli -y
 
-# Copiar el código de la aplicación primero
-COPY . .
+RUN pip install -r requirements.txt
 
-# Ahora instalar las dependencias especificadas en requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Establecer el comando de inicio por defecto
-CMD ["python", "main.py"]
-
+CMD ["python3", "app.py"]
