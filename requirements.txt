@@ -15,5 +15,6 @@ python-dotenv
 mysql-connector-python
 boto3
 sagemaker
+sagemaker-training
 Python-IO
 -e .
